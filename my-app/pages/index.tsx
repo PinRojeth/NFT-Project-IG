@@ -364,7 +364,7 @@ export default function Home() {
         {renderButton()}
       </div>
       <div>
-        <img className={styles.image} src="./0.svg" />
+        <img className={styles.image} src="./IG.svg"/>
       </div>
     </div>
 
