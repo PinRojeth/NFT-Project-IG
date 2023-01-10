@@ -1,4 +1,4 @@
-export const NFT_CONTRACT_ADDRESS = "0xf7836595cd7941871abEc907800D354336Ecea8E";
+export const NFT_CONTRACT_ADDRESS = "0x8F89c3ED8Af3743d7d7d4Dfc4467C7b1e8726367";
 
 export const abi = [
   {
@@ -349,6 +349,19 @@ export const abi = [
   },
   {
     "inputs": [],
+    "name": "nftPerAddressLimit",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "owner",
     "outputs": [
       {
@@ -475,7 +488,7 @@ export const abi = [
       },
       {
         "internalType": "uint256",
-        "name": "tokenId",
+        "name": "tokenIds",
         "type": "uint256"
       }
     ],
@@ -498,7 +511,7 @@ export const abi = [
       },
       {
         "internalType": "uint256",
-        "name": "tokenId",
+        "name": "tokenIds",
         "type": "uint256"
       },
       {
@@ -546,6 +559,19 @@ export const abi = [
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_limitNFT",
+        "type": "uint256"
+      }
+    ],
+    "name": "setNftPerAddressLimit",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bool",
         "name": "val",
         "type": "bool"
@@ -570,7 +596,13 @@ export const abi = [
     "type": "function"
   },
   {
-    "inputs": [],
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_setPresaleEnded",
+        "type": "uint256"
+      }
+    ],
     "name": "startPresale",
     "outputs": [],
     "stateMutability": "nonpayable",
@@ -710,7 +742,7 @@ export const abi = [
       },
       {
         "internalType": "uint256",
-        "name": "tokenId",
+        "name": "tokenIds",
         "type": "uint256"
       }
     ],

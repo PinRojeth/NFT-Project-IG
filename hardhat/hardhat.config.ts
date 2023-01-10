@@ -17,7 +17,7 @@ module.exports = {
       url: API_KEY_URL,
       chainId: 5,
       accounts: [PRIVATE_KEY]
-    },
+    }
   },
   etherscan: {
     // Your API key for Etherscan
