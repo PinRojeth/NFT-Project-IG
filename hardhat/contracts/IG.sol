@@ -8,7 +8,7 @@ import "./IWhitelist.sol";
 contract IG is ERC721Enumerable, ERC2981, Ownable {
     using Strings for uint256;
 
-    string public baseURI;
+    string private baseURI;
 
     address private artist;
 
@@ -51,19 +51,28 @@ contract IG is ERC721Enumerable, ERC2981, Ownable {
         whitelist = IWhitelist(whitelistContract);
     }
 
+    function _baseURI() internal view override returns (string memory) {
+        return baseURI;
+    }
+
     function setDuration(uint _setDuration) public onlyOwner {
+        require(_setDuration != 0, "Not Allowed to Start the Duration");
         require(presaleStarted == 0, "You already set the duration");
         presaleStarted = block.timestamp;
         duration = presaleStarted + _setDuration;
-        require(duration != 0, "Not Allowed to Start the Duration");
     }
+
 
     function setNftPerAddressLimit(uint256 _limitNFT) public onlyOwner {
         nftPerAddressLimit = _limitNFT;
     }
 
+    function presaleEnded() public view returns (uint256) {
+        return block.timestamp + duration;
+    } 
+
     function presaleMint() public payable onlyWhenNotPaused {
-        require(block.timestamp < duration, "Presale is not running");
+        require(block.timestamp < presaleEnded(), "Presale is not running");
         require(
             whitelist.whitelistedAddresses(msg.sender),
             "You are not whitelisted"
@@ -77,15 +86,15 @@ contract IG is ERC721Enumerable, ERC2981, Ownable {
             uint256 ownerTokenCount = balanceOf(msg.sender);
             require(
                 ownerTokenCount < nftPerAddressLimit,
-                "You allowed to mint 3 NFT only!!"
+                "You cannot mint anymore!!"
             );
         }
-
+ 
         _safeMint(msg.sender, tokenIds);
     }
 
     function mint() public payable onlyWhenNotPaused {
-        require(block.timestamp >= duration, "Presale has not ended yet");
+        require(block.timestamp >= presaleEnded(), "Presale has not ended yet");
         require(tokenIds < maxTokenIds, "Exceed maximum Crypto Devs supply");
         require(msg.value >= _price, "Ether sent is not correct");
         tokenIds += 1;
